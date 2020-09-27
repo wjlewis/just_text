@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Notes</title>
+        <link rel="stylesheet" href="main.css" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap"
+        />
+    </head>
+
+    <body>
+        <div class="header">
+            <h1>Notes</h1>
+        </div>
+
+        <div class="links">
+            {{#each links}}
+            <div><a href="{{{ href }}}">{{ title }}</a></div>
+            {{/each}}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+:root {
+    --offwhite: #f4efe3;
+    --gray: #444;
+    --light-gray: #aaa392;
+    --blue: #473ef9;
+    --font-family: "Fira Mono", monospace;
+}
+
+html,
+body {
+    margin: 0;
+    overflow: auto;
+    font-family: var(--font-family);
+    background-color: var(--offwhite);
+    color: var(--gray);
+}
+
+body {
+    padding-bottom: 5rem;
+}
+
+h1 {
+    font-size: 16pt;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+
+a {
+    color: var(--gray);
+}
+
+a:hover {
+    background-color: var(--blue);
+    color: var(--offwhite);
+}
+
+pre {
+    font-family: unset;
+    margin: unset;
+}
+
+a,
+pre {
+    line-height: 1.5;
+    font-size: 14pt;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--gray);
+    margin-bottom: 0.5rem;
+}
+
+.header h1 {
+    display: inline-block;
+    font-size: 16pt;
+    margin-right: 2rem;
+}
+
+.header,
+.content,
+.links {
+    padding-left: 2rem;
+}
+
+.date {
+    color: var(--light-gray);
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+}
