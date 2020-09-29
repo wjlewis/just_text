@@ -3,16 +3,19 @@
     --gray: #444;
     --light-gray: #aaa392;
     --blue: #473ef9;
-    --font-family: "Fira Mono", monospace;
+    --main-font: "Fira Sans", sans-serif;
+    --mono-font: "Fira Mono", monospace;
 }
 
 html,
 body {
     margin: 0;
     overflow: auto;
-    font-family: var(--font-family);
     background-color: var(--offwhite);
     color: var(--gray);
+    font-family: var(--main-font);
+    font-size: 13pt;
+    line-height: 1.7;
 }
 
 body {
@@ -35,14 +38,13 @@ a:hover {
 }
 
 pre {
-    font-family: unset;
+    font-family: var(--mono-font);
     margin: unset;
 }
 
-a,
-pre {
-    line-height: 1.5;
-    font-size: 14pt;
+.mono {
+    font-family: var(--mono-font);
+    margin: 0 0.3rem;
 }
 
 .header {
@@ -71,4 +73,8 @@ pre {
 .links {
     display: flex;
     flex-direction: column;
+}
+
+.content {
+    width: 40rem;
 }

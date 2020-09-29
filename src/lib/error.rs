@@ -2,7 +2,7 @@ use std::borrow::Cow;
 use std::error::Error;
 use std::fmt;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct JustTextError<'a> {
     message: Cow<'a, str>,
 }

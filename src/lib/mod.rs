@@ -1,9 +1,11 @@
 mod build;
-mod core;
 mod error;
+mod meta;
+mod note;
 mod read;
 
-use self::core::{Link, Metadatum};
+use self::build::Link;
+use self::meta::Metadatum;
 use std::error::Error;
 use std::path::Path;
 

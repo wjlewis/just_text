@@ -1,14 +1,18 @@
+mod common;
+mod lexer;
+mod parser;
+
+use self::parser::parse;
+use super::build::Link;
 use super::error::JustTextError;
+use super::meta::Metadatum;
 use crate::assets::NOTE_TEMPLATE;
 use chrono::{DateTime, Utc};
 use handlebars::Handlebars;
-use serde_derive::Serialize;
 use serde_json::json;
 use std::error::Error;
-use std::fmt;
 use std::fs;
 use std::path::Path;
-use std::str::FromStr;
 
 pub struct Note {
     filename: String,
@@ -35,12 +39,19 @@ impl Note {
         let title = self.generate_title();
         let date = self.created.format("%b %e %Y").to_string();
 
+        let content = parse(&self.content).map(|n| n.resolve(&self.content));
+        // Look into lifetime issue here:
+        if let Err(e) = content {
+            return Err(Box::new(JustTextError::new(format!("{}", e))));
+        }
+        let content = content.unwrap();
+
         let html = Handlebars::new().render_template(
             NOTE_TEMPLATE,
             &json!({
                 "title": title,
                 "date": date,
-                "content": self.content
+                "content": content
             }),
         )?;
 
@@ -77,38 +88,5 @@ impl Note {
             filename: self.filename.clone(),
             created: self.created.clone(),
         }
-    }
-}
-
-#[derive(Serialize)]
-pub struct Link {
-    href: String,
-    title: String,
-}
-
-pub struct Metadatum {
-    filename: String,
-    created: DateTime<Utc>,
-}
-
-impl FromStr for Metadatum {
-    type Err = Box<dyn Error>;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = s.split(" ").collect::<Vec<&str>>();
-        if parts.len() != 2 {
-            return Err(Box::new(JustTextError::new("malformed metadatum")));
-        }
-
-        let filename = parts[0].to_string();
-        let created = parts[1].parse::<DateTime<Utc>>()?;
-
-        Ok(Metadatum { filename, created })
-    }
-}
-
-impl fmt::Display for Metadatum {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{} {}", self.filename, self.created.to_rfc3339())
     }
 }

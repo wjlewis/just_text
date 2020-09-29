@@ -1,10 +1,18 @@
-use super::core::{Link, Metadatum, Note};
+use super::meta::Metadatum;
+use super::note::Note;
 use crate::assets::{INDEX_TEMPLATE, MAIN_CSS};
 use handlebars::Handlebars;
+use serde_derive::Serialize;
 use serde_json::json;
 use std::error::Error;
 use std::fs;
 use std::path::Path;
+
+#[derive(Serialize)]
+pub struct Link {
+    pub href: String,
+    pub title: String,
+}
 
 pub fn prep_build_dir(build_dir: &Path) -> Result<(), Box<dyn Error>> {
     if let Ok(_) = fs::read_dir(build_dir) {

@@ -1,4 +1,5 @@
-use super::core::{Metadatum, Note};
+use super::meta::Metadatum;
+use super::note::Note;
 use std::error::Error;
 use std::fs::{self, File};
 use std::io::Read;
